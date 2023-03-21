@@ -28,7 +28,6 @@ export function* selectTable$(store: Store, ctrlKey: boolean, tableId: string) {
   const {
     editorState: { drawRelationship },
   } = store;
-
   yield selectTable(store, ctrlKey, tableId);
   if (!ctrlKey) {
     yield selectEndMemo();
@@ -51,11 +50,12 @@ export function* selectTable$(store: Store, ctrlKey: boolean, tableId: string) {
     const startTable = drawRelationship.start.table;
     const { start, end } = addRelationshipCmd.data;
     const createEndColumns: AddCustomColumn[] = [];
-
     start.columnIds.forEach((startColumnId, index) => {
       const startColumn = getData(startTable.columns, startColumnId);
       if (!startColumn) return;
-
+      const columnNameWithStartColumn = `${startTable.name
+        .split('.')
+        .slice(-1)}_${startColumn.name}`;
       createEndColumns.push({
         tableId: end.tableId,
         id: end.columnIds[index],
@@ -72,7 +72,7 @@ export function* selectTable$(store: Store, ctrlKey: boolean, tableId: string) {
           pfk: false,
         },
         value: {
-          name: startColumn.name,
+          name: columnNameWithStartColumn,
           comment: startColumn.comment,
           dataType: startColumn.dataType,
           default: startColumn.default,

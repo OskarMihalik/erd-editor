@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "lerna run build",
+    "build:watch": "lerna watch -- lerna run build --scope=vuerd",
     "test": "lerna run test",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint \"**/*.{js,ts,tsx,vue}\" --fix",
@@ -57,7 +58,7 @@
     "eslint-plugin-vue": "^7.18.0",
     "husky": "^7.0.2",
     "jest": "^27.1.0",
-    "lerna": "^4.0.0",
+    "lerna": "^6.5.1",
     "lint-staged": "^11.1.2",
     "lodash": "^4.17.21",
     "prettier": "^2.3.2",
